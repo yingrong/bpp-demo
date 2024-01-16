@@ -6,23 +6,17 @@ import com.example.bpp.metric.FormulaResult;
 
 import java.math.BigDecimal;
 
-public class AddFormula implements Formula<AddParam> {
+public class AddFormula implements Formula<AddParam,BigDecimal> {
 
 
     @Override
-    public FormulaResult evaluate(AddParam data) {
+    public FormulaResult<BigDecimal> evaluate(AddParam data) {
 
         BigDecimal sum = data.getNumberList().stream()
-                .reduce((number, number2) -> number.add(number2))
+                .reduce(BigDecimal::add)
                 .get();
 
-        FormulaResult formulaResult = new FormulaResult() {
-            @Override
-            public boolean success() {
-                return true;
-            }
-
-        };
+        FormulaResult<BigDecimal> formulaResult = new FormulaResult() ;
 
         formulaResult.setT(sum);
         return formulaResult;

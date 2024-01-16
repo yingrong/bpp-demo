@@ -8,7 +8,7 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 import java.util.List;
 
-public class Exp4JFormula implements Formula<Exp4jMapParam> {
+public class Exp4JFormula<T> implements Formula<Exp4jMapParam,T> {
 
     private String expression;
     private List<String> params;

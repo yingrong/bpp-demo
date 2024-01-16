@@ -1,17 +1,17 @@
 package com.example.bpp.metric;
 
-public class Metric {
+public class Metric<P extends FormulaParam, V> {
 
     private String name;
 
-    private Formula formula;
+    private Formula<P,V> formula;
 
-    private ParamSource paramSource;
+    private ParamSource<P> paramSource;
 
     public Metric() {
     }
 
-    public Metric(String name, Formula formula, ParamSource paramSource) {
+    public Metric(String name, Formula<P,V> formula, ParamSource<P> paramSource) {
         this.name = name;
         this.formula = formula;
         this.paramSource = paramSource;
@@ -25,27 +25,25 @@ public class Metric {
         this.name = name;
     }
 
-    public Formula getFormula() {
+    public Formula<P,V> getFormula() {
         return formula;
     }
 
-    public void setFormula(Formula formula) {
+    public void setFormula(Formula<P,V> formula) {
         this.formula = formula;
     }
 
-    public ParamSource getParamSource() {
+    public ParamSource<P> getParamSource() {
         return paramSource;
     }
 
-    public void setParamSource(ParamSource paramSource) {
+    public void setParamSource(ParamSource<P> paramSource) {
         this.paramSource = paramSource;
     }
 
-    public FormulaResult evaluate() {
+    public FormulaResult<V> evaluate() {
 
-        FormulaResult evaluate = formula.evaluate(paramSource.getData());
-
-        return evaluate;
+        return formula.evaluate(paramSource.getData());
 
     }
 
