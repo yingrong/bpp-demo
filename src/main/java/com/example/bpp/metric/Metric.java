@@ -1,5 +1,14 @@
 package com.example.bpp.metric;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Map;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Metric {
 
     private String name;
@@ -8,45 +17,13 @@ public class Metric {
 
     private ParamSource paramSource;
 
-    public Metric() {
-    }
-
-    public Metric(String name, Formula formula, ParamSource paramSource) {
-        this.name = name;
-        this.formula = formula;
-        this.paramSource = paramSource;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Formula getFormula() {
-        return formula;
-    }
-
-    public void setFormula(Formula formula) {
-        this.formula = formula;
-    }
-
-    public ParamSource getParamSource() {
-        return paramSource;
-    }
-
-    public void setParamSource(ParamSource paramSource) {
-        this.paramSource = paramSource;
-    }
-
     public FormulaResult evaluate() {
+        return formula.evaluate(paramSource.getData());
 
-        FormulaResult evaluate = formula.evaluate(paramSource.getData());
+    }
 
-        return evaluate;
-
+    public FormulaResult evaluate(Map<String, Double> paramMap) {
+        return formula.evaluate(paramSource.getData(paramMap));
     }
 
 }

@@ -19,7 +19,7 @@ public class FormulaResult<T> {
         this.t = t;
     }
 
-    T getValue() {
+    public T getValue() {
         return t;
     }
 }
