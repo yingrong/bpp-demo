@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bpp.mapper.ReportIndexModelMapper">
+
+    <select id="queryMonthlyModelRecord" resultType="com.example.bpp.bo.ReportModelOutBo">
+        SELECT
+            d.report_month AS reportMonth,
+        	m.sheet_code AS sheetCode,
+        	m.cell_coord AS cellCoord,
+        	d.fill_value AS fillValue
+        FROM t_bpp_report_index_model m
+        JOIN t_bpp_report_index_data_detail d ON m.index_name = d.index_name AND d.del_flag = 0
+        WHERE
+            m.del_flag = 0
+    </select>
+
+    <select id="queryCalculatedTargetIndexInfo" resultType="com.example.bpp.bo.ReportModelOutBo">
+        SELECT
+            c.target_index AS targetIndex,
+            m.sheet_code AS sheetCode,
+            m.cell_coord AS cellCoord,
+            fc.index_formula AS indexFormula
+        FROM t_bpp_dep_index_conf c
+        JOIN t_bpp_index_formula_conf fc ON c.target_index = fc.target_index AND fc.del_flag = 0
+        JOIN t_bpp_report_index_model m ON c.target_index = m.index_name AND m.del_flag = 0
+        LEFT JOIN t_bpp_report_index_data_detail d ON c.target_index = d.index_name AND d.del_flag = 0
+        WHERE
+            c.del_flag = 0
+        AND d.fill_value IS NULL
+        GROUP BY c.target_index, m.cell_coord, m.sheet_code, fc.index_formula
+    </select>
+
+    <select id="queryCalculatedBasicInfoByTargetIndex" parameterType="com.example.bpp.bo.ReportModelInBo" resultType="com.example.bpp.bo.ReportModelOutBo">
+        SELECT
+            c.id AS formulaParam,
+            c.target_index AS targetIndex,
+	        c.source_index AS dataSourceIndex,
+            d.report_month AS reportMonth,
+        	m.sheet_code AS sheetCode,
+        	m.cell_coord AS cellCoord,
+        	d.fill_value AS fillValue
+        FROM t_bpp_report_index_model m
+        JOIN t_bpp_dep_index_conf c ON m.index_name = c.source_index AND c.del_flag = 0
+        LEFT JOIN t_bpp_report_index_data_detail d ON m.index_name = d.index_name AND d.del_flag = 0
+        WHERE
+            m.del_flag = 0
+        AND c.target_index IN
+        <foreach collection="targetIndexList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

@@ -11,13 +11,12 @@ public class AddFormula implements Formula<AddParam> {
 
     @Override
     public FormulaResult evaluate(AddParam data) {
-
         BigDecimal sum = data.getNumberList().stream()
                 .reduce((number, number2) -> number.add(number2))
                 .get();
 
         FormulaResult formulaResult = new FormulaResult() {
-            @Override
+//            @Override
             public boolean success() {
                 return true;
             }
