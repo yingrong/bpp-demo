@@ -8,7 +8,7 @@ public class MetricTask {
 
     private boolean done;
 
-    private boolean isDone() {
+    public boolean isDone() {
         return done;
     }
 
@@ -16,6 +16,9 @@ public class MetricTask {
         this.done = done;
     }
 
-    
+
+    public boolean execute() {
+        return true;
+    }
 
 }
