@@ -9,7 +9,7 @@ import com.example.bpp.metric.param.Exp4jMapParam;
 import com.example.bpp.metric.param.TwoDoubleParam;
 import com.example.bpp.metric.source.AddSource;
 import com.example.bpp.metric.source.Exp4jMapParamSource;
-import com.example.bpp.metric.source.TwoDobleSource;
+import com.example.bpp.metric.source.TwoDoubleSource;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -36,7 +36,7 @@ class MetricTest {
 
     @Test
     void metric_evaluate_divide() {
-        Metric<TwoDoubleParam, Double> metric = new Metric<>("divide", new DivideFormula(), new TwoDobleSource());
+        Metric<TwoDoubleParam, Double> metric = new Metric<>("divide", new DivideFormula(), new TwoDoubleSource());
 
         FormulaResult<Double> formulaResult = metric.evaluate();
 
@@ -47,7 +47,7 @@ class MetricTest {
 
     @Test
     void metric_evaluate_minus() {
-        Metric<TwoDoubleParam, Double> metric = new Metric<>("minus", new MinusFormula(), new TwoDobleSource());
+        Metric<TwoDoubleParam, Double> metric = new Metric<>("minus", new MinusFormula(), new TwoDoubleSource());
 
         FormulaResult<Double> formulaResult = metric.evaluate();
 
