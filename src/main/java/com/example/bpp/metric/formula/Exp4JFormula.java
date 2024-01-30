@@ -8,17 +8,17 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 import java.util.List;
 
-public class Exp4JFormula<T> implements Formula<Exp4jMapParam,T> {
+public class Exp4JFormula implements Formula<Exp4jMapParam, Double> {
 
-    private String expression;
+    private String expressionString;
     private List<String> params;
 
-    public String getExpression() {
-        return expression;
+    public String getExpressionString() {
+        return expressionString;
     }
 
-    public void setExpression(String expression) {
-        this.expression = expression;
+    public void setExpressionString(String expressionString) {
+        this.expressionString = expressionString;
     }
 
     public List<String> getParams() {
@@ -30,24 +30,21 @@ public class Exp4JFormula<T> implements Formula<Exp4jMapParam,T> {
     }
 
     @Override
-    public FormulaResult evaluate(Exp4jMapParam data) {
+    public FormulaResult<Double> evaluate(Exp4jMapParam data) {
 
-        ExpressionBuilder expressionBuilder = new ExpressionBuilder(expression);
-        for (String param : params) {
-            expressionBuilder.variable(param);
-        }
-
-        Expression build = expressionBuilder.build();
-
-        data.getMap().entrySet().forEach(o -> {
-            build.setVariable(o.getKey(),o.getValue());
-        });
-
+        Expression expression = buildExpression(data);
 
         FormulaResult<Double> formulaResult = new FormulaResult<>();
-
         formulaResult.setSuccess(true);
-        formulaResult.setT(build.evaluate());
+        formulaResult.setT(expression.evaluate());
         return formulaResult;
+    }
+
+    private Expression buildExpression(Exp4jMapParam data) {
+        ExpressionBuilder expressionBuilder = new ExpressionBuilder(expressionString);
+        params.forEach(expressionBuilder::variable);
+        Expression expression = expressionBuilder.build();
+        data.getMap().forEach(expression::setVariable);
+        return expression;
     }
 }

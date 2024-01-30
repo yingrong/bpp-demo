@@ -6,7 +6,7 @@ import com.example.bpp.metric.FormulaResult;
 
 import java.math.BigDecimal;
 
-public class AddFormula implements Formula<AddParam,BigDecimal> {
+public class AddFormula implements Formula<AddParam, BigDecimal> {
 
 
     @Override
@@ -16,8 +16,9 @@ public class AddFormula implements Formula<AddParam,BigDecimal> {
                 .reduce(BigDecimal::add)
                 .get();
 
-        FormulaResult<BigDecimal> formulaResult = new FormulaResult() ;
+        FormulaResult<BigDecimal> formulaResult = new FormulaResult<>();
 
+        formulaResult.setSuccess(true);
         formulaResult.setT(sum);
         return formulaResult;
     }
