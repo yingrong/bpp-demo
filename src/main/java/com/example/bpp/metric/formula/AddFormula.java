@@ -14,7 +14,7 @@ public class AddFormula implements Formula<AddParam, BigDecimal> {
 
         BigDecimal sum = data.getNumberList().stream()
                 .reduce(BigDecimal::add)
-                .get();
+                .orElse(BigDecimal.ZERO);
 
         FormulaResult<BigDecimal> formulaResult = new FormulaResult<>();
 

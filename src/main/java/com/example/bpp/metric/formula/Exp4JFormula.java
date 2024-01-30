@@ -13,16 +13,8 @@ public class Exp4JFormula implements Formula<Exp4jMapParam, Double> {
     private String expressionString;
     private List<String> params;
 
-    public String getExpressionString() {
-        return expressionString;
-    }
-
     public void setExpressionString(String expressionString) {
         this.expressionString = expressionString;
-    }
-
-    public List<String> getParams() {
-        return params;
     }
 
     public void setParams(List<String> params) {

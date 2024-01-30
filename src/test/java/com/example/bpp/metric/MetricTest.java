@@ -42,7 +42,7 @@ class MetricTest {
 
         assertTrue(formulaResult.success());
 
-        assertEquals(3, (double) formulaResult.getValue(), 0.1);
+        assertEquals(3, formulaResult.getValue(), 0.1);
     }
 
     @Test
@@ -53,7 +53,7 @@ class MetricTest {
 
         assertTrue(formulaResult.success());
 
-        assertEquals(2.2, (double) formulaResult.getValue(), 0.1);
+        assertEquals(2.2, formulaResult.getValue(), 0.1);
     }
 
 
@@ -69,6 +69,6 @@ class MetricTest {
 
         assertTrue(formulaResult.success());
 
-        assertEquals(2.2, (double) formulaResult.getValue(), 0.1);
+        assertEquals(2.2, formulaResult.getValue(), 0.1);
     }
 }
