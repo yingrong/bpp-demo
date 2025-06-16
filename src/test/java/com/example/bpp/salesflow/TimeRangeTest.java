@@ -25,7 +25,7 @@ class TimeRangeTest {
     @Test
     void staticFactory_WithBothNullDates_ThrowsException() {
         assertThrows(IllegalArgumentException.class,
-                () -> TimeRange.closedByDate((Date) null, (Date) null));
+                () -> TimeRange.closedByDate(null, null));
     }
 
     @Test
