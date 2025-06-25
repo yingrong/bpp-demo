@@ -11,18 +11,18 @@ class RuleTest {
     @Test
     void testIsApplicable() {
         SalesBusinessEntity salesBusinessEntity = new SalesBusinessEntity();
-        salesBusinessEntity.setDaqu("1");
+        salesBusinessEntity.setOrderType(1);
 
-        BaseRule<SalesBusinessEntity> rule1 = new BaseRule<>("rule1", entity -> true, 1, entity -> entity.getDaqu().equals("1"), false);
+        BaseRule<SalesBusinessEntity> rule1 = new BaseRule<>("rule1", entity -> true, 1, entity -> entity.getOrderType() == 1, false);
         assertTrue(rule1.isApplicable(salesBusinessEntity));
     }
 
     @Test
     void testIsNotApplicable() {
         SalesBusinessEntity salesBusinessEntity = new SalesBusinessEntity();
-        salesBusinessEntity.setDaqu("2");
+        salesBusinessEntity.setConfSeq("2");
 
-        BaseRule<SalesBusinessEntity> rule = new BaseRule<>("rule1", entity -> true, 1, entity -> entity.getDaqu().equals("1"), false);
+        BaseRule<SalesBusinessEntity> rule = new BaseRule<>("rule1", entity -> true, 1, entity -> entity.getConfSeq().equals("1"), false);
 
         assertFalse(rule.isApplicable(salesBusinessEntity));
     }
@@ -32,12 +32,12 @@ class RuleTest {
     @Test
     void testEvaluate() {
         SalesBusinessEntity salesBusinessEntity = new SalesBusinessEntity();
-        salesBusinessEntity.setDaqu("1");
-        salesBusinessEntity.setCity("北京");
+        salesBusinessEntity.setConfSeq("1");
+        salesBusinessEntity.setSourceLocation("北京");
 
         BaseRule<SalesBusinessEntity> rule = new BaseRule<>("rule1", entity -> {
-            return entity.getCity().equals("北京");
-        }, 1, entity -> entity.getDaqu().equals("1"), false);
+            return entity.getSourceLocation().equals("北京");
+        }, 1, entity -> entity.getConfSeq().equals("1"), false);
 
         assertTrue(rule.evaluate(salesBusinessEntity));
     }
@@ -45,12 +45,12 @@ class RuleTest {
     @Test
     void testEvaluateNegated() {
         SalesBusinessEntity salesBusinessEntity = new SalesBusinessEntity();
-        salesBusinessEntity.setDaqu("1");
-        salesBusinessEntity.setCity("北京");
+        salesBusinessEntity.setConfSeq("1");
+        salesBusinessEntity.setSourceLocation("北京");
 
         BaseRule<SalesBusinessEntity> rule = new BaseRule<>("rule1", entity -> {
-            return entity.getCity().equals("北京");
-        }, 1, entity -> entity.getDaqu().equals("1"), true);
+            return entity.getSourceLocation().equals("北京");
+        }, 1, entity -> entity.getConfSeq().equals("1"), true);
 
         assertFalse(rule.evaluate(salesBusinessEntity));
     }
